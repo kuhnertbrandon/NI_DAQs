@@ -2,6 +2,13 @@
 
 Welcome to the NI cDAQ repository! 
 
+Requirements:
+	NI-Labview (Install available on N drive)
+	NI-DAQ mx Download here: https://www.ni.com/en-us/support/downloads/drivers/download.ni-daq-mx.html#480879
+	pip install requirements.txt
+Nice to have:
+	NI Max for troubleshooting connections
+
 All functions currently available are found in cDAQ api.
 
 Simple execution examples can be found in the execution_examples repository.
