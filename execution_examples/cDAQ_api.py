@@ -9,7 +9,7 @@ class cDAQ():
 		self.is_valid = None
 		### Too many of these are hardcoded right now 
 		self.sampling_freq_in = 100 	# This is how fast the channel stream will sampling, python limit is 1.0e5, 4 chan 9219 is 
-										# Need to experiment more with effect on final but for now leave high
+												# Need to experiment more with effect on final but for now leave high
 		self.buffer_in_size = 5 		# Keep low for speed increase for large moving averages, min is 5 keep for speed
 		self.buffer_in_size_cfg = round(self.buffer_in_size*1) # necessary for clock config
 		self.bufsize_callback = self.buffer_in_size
@@ -39,27 +39,30 @@ class cDAQ():
 
 
 	### Adding a for loop that assumes 9219s and starting in slot 1
-	### create 
+	### Create 
 	def create_chan_list_generic(self,channel_creator_num):
 		### Assumes only one cDAQ
-		#chass = 'cDAQ1'
+		chass = 'cDAQ1'
 		channel_list = []
 
 		for i in range(0,channel_creator_num):
 			if i < 4:
-				mod = 'cDAQ1Mod1/'
+				mod = 'Mod1/'
 			elif i >= 4 and i < 8:
-				mod ='cDAQ2Mod1/'
+				mod ='Mod2/'
 			elif i >= 8 and i < 12:
-				mod = 'cDAQ3Mod1/'
+				mod = 'Mod3/'
 			elif i >= 12 and i < 16:
-				mod ='cDAQ4Mod1/'
+				mod ='Mod4/'
 			elif i >= 16 and i < 20:
-				mod = 'cDAQ5Mod1/'
+				mod = 'Mod5/'
 			elif i >= 24 and i < 28:
-				mod ='cDAQ6Mod1/'
+				mod ='Mod6/'
+			elif i >= 28 and i < 32:
+				mod = 'Mod7/'
 			else:
-				print('Limit currently at 24 channels')
+				mod = 'Mod8/' #### Can add more if we get a 14 units
+
 			chan = chass + mod + 'ai' + str((i%4))
 			channel_list.append(chan)
 

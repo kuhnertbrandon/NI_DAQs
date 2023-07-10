@@ -10,13 +10,13 @@ import cDAQ_api as cDAQ_api
 
 def main():
 
-	column_list=['Time (s)','Resistance_1','Resistance_2','Time for last cycle']
+	column_list=['Time (s)','Resistance_1','Resistance_2']
 	big_data=np.empty((0,len(column_list)))
 	delta_loop = 0
 
 	print('\n Starting up')
 	c = cDAQ_api.cDAQ()
-	list_o_channels = ['cDAQ2Mod2/ai0','cDAQ2Mod2/ai1']
+	list_o_channels = ['cDAQ3Mod1/ai0','cDAQ3Mod1/ai1']
 
 	c.intake_chan_list(list_o_channels)  # intakes a premade channel list
 	time.sleep(1)
@@ -40,21 +40,21 @@ def main():
 			buff =  c.return_buffer()  				 # Pulls buffer
 
 			#
-			new_row = np.array([[current_time,buff[0,-1],buff[1,-1],delta_loop]])
+			new_row = np.array([[current_time,buff[0,-1],buff[1,-1]]])
 			big_data = np.vstack((big_data,new_row))
 			delta_loop = time.time()-delta_start
 			
-			if (current_time % 1) < 0.2:
-				bigdf = pd.DataFrame(big_data,columns=column_list)  # This is slow
-				bigdf.to_csv('stress_test.csv',index=False)
-				print(new_row)
+		
+			#bigdf = pd.DataFrame(big_data,columns=column_list)  # This is slow
+			#bigdf.to_csv('stress_test.csv',index=False)
+			print(new_row)
 				
 			time.sleep(0.1)
 
 	except KeyboardInterrupt:
 		c.end()
 		bigdf = pd.DataFrame(big_data,columns=column_list)
-		bigdf.to_csv('stress_test.csv',index=False)
+		bigdf.to_csv('stress_test_new_chass_2nd_9219.csv',index=False)
 		print('Bye!!')
 
 
